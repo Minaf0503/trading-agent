@@ -19,4 +19,9 @@ DEFAULT_CONFIG = {
     "max_recur_limit": 100,
     # Tool settings
     "online_tools": True,
+    # Report saving settings
+    "always_save_reports": True,
+    "save_complete_report": True,
+    "save_individual_reports": True,
+    "save_analysis_summary": True,
 }

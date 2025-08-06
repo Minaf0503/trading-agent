@@ -8,3 +8,6 @@ class AnalystType(str, Enum):
     SOCIAL = "social"
     NEWS = "news"
     FUNDAMENTALS = "fundamentals"
+    CRYPTO_MARKET = "crypto_market"
+    CRYPTO_ONCHAIN = "crypto_onchain"
+    CRYPTO_DEFI = "crypto_defi"

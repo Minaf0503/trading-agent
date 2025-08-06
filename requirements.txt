@@ -1,5 +1,9 @@
 typing-extensions
+typer
 langchain-openai
+coinbase-agentkit
+requests
+pandas
 langchain-experimental
 pandas
 yfinance

@@ -1,6 +1,7 @@
 from typing import Optional
 import datetime
 import typer
+import json
 from pathlib import Path
 from functools import wraps
 from rich.console import Console
@@ -1092,6 +1093,50 @@ def run_analysis():
 
         # Display the complete final report
         display_complete_report(final_state)
+
+        # Always save the complete final report
+        complete_report = message_buffer.final_report
+        if complete_report:
+            # Save complete report with timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            complete_report_file = results_dir / f"complete_report_{timestamp}.md"
+            with open(complete_report_file, "w") as f:
+                f.write(f"# TradingAgents Complete Analysis Report\n")
+                f.write(f"**Ticker:** {selections['ticker']}\n")
+                f.write(f"**Analysis Date:** {selections['analysis_date']}\n")
+                f.write(f"**Generated:** {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"**Analysts:** {', '.join(analyst.value for analyst in selections['analysts'])}\n")
+                f.write(f"**Research Depth:** {selections['research_depth']}\n")
+                f.write(f"**LLM Provider:** {selections['llm_provider']}\n\n")
+                f.write("---\n\n")
+                f.write(complete_report)
+            
+            # Also save a summary file
+            summary_file = results_dir / f"analysis_summary_{timestamp}.json"
+            summary_data = {
+                "ticker": selections["ticker"],
+                "analysis_date": selections["analysis_date"],
+                "generated_at": datetime.datetime.now().isoformat(),
+                "analysts": [analyst.value for analyst in selections["analysts"]],
+                "research_depth": selections["research_depth"],
+                "llm_provider": selections["llm_provider"],
+                "shallow_thinker": selections["shallow_thinker"],
+                "deep_thinker": selections["deep_thinker"],
+                "final_decision": decision,
+                "report_files": {
+                    "complete_report": str(complete_report_file),
+                    "individual_reports": {
+                        section: str(report_dir / f"{section}.md") 
+                        for section in message_buffer.report_sections.keys()
+                        if message_buffer.report_sections[section] is not None
+                    }
+                }
+            }
+            with open(summary_file, "w") as f:
+                json.dump(summary_data, f, indent=2)
+            
+            console.print(f"\n[green]✅ Complete report saved to: {complete_report_file}[/green]")
+            console.print(f"[green]✅ Analysis summary saved to: {summary_file}[/green]")
 
         update_display(layout)
 

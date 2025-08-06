@@ -8,6 +8,9 @@ ANALYST_ORDER = [
     ("Social Media Analyst", AnalystType.SOCIAL),
     ("News Analyst", AnalystType.NEWS),
     ("Fundamentals Analyst", AnalystType.FUNDAMENTALS),
+    ("Crypto Market Analyst", AnalystType.CRYPTO_MARKET),
+    ("Crypto Onchain Analyst", AnalystType.CRYPTO_ONCHAIN),
+    ("Crypto DeFi Analyst", AnalystType.CRYPTO_DEFI),
 ]
 
 

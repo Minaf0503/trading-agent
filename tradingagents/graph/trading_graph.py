@@ -152,6 +152,32 @@ class TradingAgentsGraph:
                     self.toolkit.get_simfin_income_stmt,
                 ]
             ),
+            # Crypto-specific tool nodes
+            "crypto_market": ToolNode(
+                [
+                    self.toolkit.get_crypto_price_data,
+                    self.toolkit.get_crypto_technical_indicators,
+                    self.toolkit.get_crypto_market_metrics,
+                    self.toolkit.get_crypto_volume_analysis,
+                ]
+            ),
+            "crypto_onchain": ToolNode(
+                [
+                    self.toolkit.get_onchain_liquidity_data,
+                    self.toolkit.get_onchain_holder_data,
+                    self.toolkit.get_onchain_transaction_data,
+                    self.toolkit.get_onchain_supply_data,
+                ]
+            ),
+            "crypto_defi": ToolNode(
+                [
+                    self.toolkit.get_defi_protocol_data,
+                    self.toolkit.get_defi_yield_data,
+                    self.toolkit.get_defi_tvl_data,
+                    self.toolkit.get_defi_governance_data,
+                    self.toolkit.get_defi_risk_data,
+                ]
+            ),
         }
 
     def propagate(self, company_name, trade_date):

@@ -88,6 +88,28 @@ class GraphSetup:
             delete_nodes["fundamentals"] = create_msg_delete()
             tool_nodes["fundamentals"] = self.tool_nodes["fundamentals"]
 
+        # Crypto-specific analysts
+        if "crypto_market" in selected_analysts:
+            analyst_nodes["crypto_market"] = create_crypto_market_analyst(
+                self.quick_thinking_llm, self.toolkit
+            )
+            delete_nodes["crypto_market"] = create_msg_delete()
+            tool_nodes["crypto_market"] = self.tool_nodes["crypto_market"]
+
+        if "crypto_onchain" in selected_analysts:
+            analyst_nodes["crypto_onchain"] = create_crypto_onchain_analyst(
+                self.quick_thinking_llm, self.toolkit
+            )
+            delete_nodes["crypto_onchain"] = create_msg_delete()
+            tool_nodes["crypto_onchain"] = self.tool_nodes["crypto_onchain"]
+
+        if "crypto_defi" in selected_analysts:
+            analyst_nodes["crypto_defi"] = create_crypto_defi_analyst(
+                self.quick_thinking_llm, self.toolkit
+            )
+            delete_nodes["crypto_defi"] = create_msg_delete()
+            tool_nodes["crypto_defi"] = self.tool_nodes["crypto_defi"]
+
         # Create researcher and manager nodes
         bull_researcher_node = create_bull_researcher(
             self.quick_thinking_llm, self.bull_memory
